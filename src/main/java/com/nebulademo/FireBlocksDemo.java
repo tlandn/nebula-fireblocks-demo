@@ -45,6 +45,10 @@ public class FireBlocksDemo {
     }
   }
 
+  public void newMethod2() {
+    System.out.println("New Method 2");
+  }
+
   public static void main(String[] args) {
     String apiKey = System.getenv().get("NEBULA_API_KEY");
     String secretKey = System.getenv().get("NEBULA_SECRET_KEY");
