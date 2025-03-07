@@ -12,21 +12,20 @@ import com.fireblocks.sdk.model.VaultAccountsPagedResponse;
 import com.nebulademo.utils.JSONUtils;
 
 public class FireBlocksDemo {
-  static String apiKey;
-  static String secretKey;
-  static Fireblocks fireblocks;
+  Fireblocks fireblocks;
 
-  static {
-    apiKey = System.getenv().get("NEBULA_API_KEY");
-    secretKey = System.getenv().get("NEBULA_SECRET_KEY");
+  public static FireBlocksDemo getInstance(String apiKey, String secretKey) {
     ConfigurationOptions configurationOptions = new ConfigurationOptions()
         .basePath(BasePath.Sandbox)
         .apiKey(apiKey)
         .secretKey(secretKey);
-    fireblocks = new Fireblocks(configurationOptions);
+    FireBlocksDemo fireBlocksDemo = new FireBlocksDemo();
+    fireBlocksDemo.fireblocks = new Fireblocks(configurationOptions);
+
+    return fireBlocksDemo;
   }
 
-  public static void getPagedVaultAccounts() {
+  public void getPagedVaultAccounts() {
     // Retrieving Vault Accounts
     BigDecimal limit = new BigDecimal(10);
     try {
@@ -47,6 +46,9 @@ public class FireBlocksDemo {
   }
 
   public static void main(String[] args) {
-    getPagedVaultAccounts();
+    String apiKey = System.getenv().get("NEBULA_API_KEY");
+    String secretKey = System.getenv().get("NEBULA_SECRET_KEY");
+    var fireblocksDemo = FireBlocksDemo.getInstance(apiKey, secretKey);
+    fireblocksDemo.getPagedVaultAccounts();
   }
 }
